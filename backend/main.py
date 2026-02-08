@@ -16,7 +16,6 @@ import urllib.parse
 from dotenv import load_dotenv
 import logging
 from huggingface_hub import InferenceClient
-import os
 
 # Try to import replicate, it's optional
 try:
@@ -44,7 +43,6 @@ REPLICATE_API_KEY = os.getenv("REPLICATE_API_KEY")
 
 # Debug: Log loaded API keys
 logging.info(f"REPLICATE_API_KEY set: {bool(REPLICATE_API_KEY)}")
-logging.info(f"REPLICATE_API_KEY value: {REPLICATE_API_KEY}")
 logging.info(f"OPENROUTER_API_KEY set: {bool(OPENROUTER_API_KEY)}")
 
 # Initialize HF client (deprecated, kept for compatibility)
@@ -120,9 +118,17 @@ def generate_text(prompt: str, max_tokens: int = 300, temperature: float = 0.7) 
 
 app = FastAPI(title="Vizzy Chat Backend", version="0.1.0")
 
+# Configure CORS origins via ALLOWED_ORIGINS env var (comma-separated).
+# Default is '*' for development. In production set to your Pages origin.
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "*")
+if allowed_origins_env.strip() == "*":
+    allowed_origins = ["*"]
+else:
+    allowed_origins = [o.strip() for o in allowed_origins_env.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
