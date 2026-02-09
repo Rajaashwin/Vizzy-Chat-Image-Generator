@@ -1,10 +1,10 @@
 {
   "buildCommand": "pip install -r backend/requirements.txt",
   "env": {
-    "OPENROUTER_API_KEY": "@openrouter_api_key",
-    "HUGGINGFACE_API_KEY": "@huggingface_api_key",
-    "REPLICATE_API_KEY": "@replicate_api_key",
-    "ALLOWED_ORIGINS": "@allowed_origins"
+    "OPENROUTER_API_KEY": "",
+    "HUGGINGFACE_API_KEY": "",
+    "REPLICATE_API_KEY": "",
+    "ALLOWED_ORIGINS": "*"
   },
   "functions": {
     "api/index.py": {
