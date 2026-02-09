@@ -2,23 +2,22 @@
 
 ## ⚡ TL;DR - Run Everything in One Command
 
-### Windows
-
-**PowerShell:**
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser -Force
-.\START_BOTH.ps1
+```bash
+node start.js
 ```
 
-**Command Prompt:**
-```cmd
-START_BOTH.bat
+Or using npm:
+```bash
+npm start
+npm run dev
+npm run dev:all
 ```
 
-Both services will start in separate terminals:
-- **Frontend:** http://localhost:5173
+Both services will start automatically:
+- **Frontend:** http://localhost:5173/vizzy-chat/
 - **Backend:** http://localhost:8000
 - **API Docs:** http://localhost:8000/docs
+- Stop with: **Ctrl+C**
 
 ---
 
@@ -85,68 +84,53 @@ cd ..
 
 ## 🚀 Step 2: Run Everything
 
-From the project root (`vizzy-chat/` directory):
+That's it! Just run one command from the project root (`vizzy-chat/`):
 
-### Option A: PowerShell (Recommended)
-```powershell
-.\START_BOTH.ps1
-```
-
-### Option B: Command Prompt
-```cmd
-START_BOTH.bat
-```
-
-### Option C: Manual (Two Terminals)
-
-**Terminal 1 - Backend:**
 ```bash
-cd backend
-.\venv\Scripts\activate  # Windows
-python main.py
-# Output: INFO: Uvicorn running on http://0.0.0.0:8000
+node start.js
 ```
 
-**Terminal 2 - Frontend:**
+Or equivalently:
 ```bash
-cd frontend
+npm start
 npm run dev
-# Output: VITE v... ready in ... ms
-#         Local: http://localhost:5173/
+npm run dev:all
 ```
+
+Both services start in the same terminal with live logs. Press **Ctrl+C** to stop.
 
 ---
 
 ## ✅ Verify It's Working
 
 1. **Frontend loads:**
-   - Open http://localhost:5173
+   - Open http://localhost:5173/vizzy-chat/
    - Should see the Vizzy Chat interface with Chat/Image buttons
 
 2. **Backend responds:**
    - Open http://localhost:8000/docs
    - Should see FastAPI Swagger UI with `/chat` endpoint
 
-3. **API keys are loaded:**
-   - Send a test message in the frontend
-   - Should see a real response (not a placeholder)
-   - Check backend console for: `OpenRouter API configured: True`
+3. **API keys are loaded (check backend logs):**
+   ```
+   OpenRouter API configured: True
+   Replicate key available: True
+   ```
+   If you see `False`, check that `backend/.env` has valid keys.
 
 ---
 
 ## 🎨 Test the Features
 
 ### Chat Mode
-1. Click "Chat" button (left in header)
-2. Type a message: `"What is the meaning of life?"`
-3. Should get AI response from OpenRouter
+1. Click "Chat" button in the header
+2. Type: `"What is the meaning of life?"`
+3. Should get real AI response from OpenRouter
 
 ### Image Generation
-1. Click "Image" button (right in header)
-2. Type a prompt: `"A mystical forest with glowing mushrooms"`
-3. Should see:
-   - Generated image from HuggingFace, OR
-   - Colorful SVG placeholder if API is slow
+1. Click "Image" button in the header
+2. Type: `"A mystical forest with glowing mushrooms"`
+3. Should see real generated image or colorful SVG fallback
 
 ### Session Persistence
 - Refresh the page — your conversation history loads from backend
