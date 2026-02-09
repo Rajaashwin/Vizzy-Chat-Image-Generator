@@ -7,7 +7,7 @@ const isDevelopment = import.meta.env.MODE === 'development';
 
 export const API_BASE_URL = isDevelopment 
   ? 'http://localhost:8000'
-  : import.meta.env.VITE_API_BASE_URL || 'https://vizzy-chat-image-generator.vercel.app'; // Replace with your Vercel URL
+  : import.meta.env.VITE_API_BASE_URL || 'https://vizzychat.vercel.app';
 
 export const API_ENDPOINTS = {
   chat: `${API_BASE_URL}/chat`,
